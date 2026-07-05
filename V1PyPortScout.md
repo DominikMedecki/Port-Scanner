@@ -76,3 +76,33 @@ Closed ports: 1022
 ### Core function:
 ```python
 socket.connect_ex((ip, port))
+
+This returns:
+0 → port is open
+
+non-zero → port is closed or unreachable
+📊 Default Scan Range
+
+The scanner checks:
+
+Ports 1 - 1024
+
+This covers common service ports such as:
+
+SSH (22)
+HTTP (80)
+HTTPS (443)
+FTP (21)
+DNS (53)
+
+🚀 Future Improvements (v2+ roadmap)
+
+This project is designed to evolve into a full Nmap-style tool.
+
+Planned upgrades:
+
+🔍 Service/banner detection
+⚡ Multi-threaded scanning (faster performance)
+📁 JSON/TXT scan reports
+🎯 Custom port range input
+🧠 Scan profiles (quick/full / stealth mode)
