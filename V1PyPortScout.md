@@ -27,7 +27,7 @@ This makes the output cleaner and more useful for reconnaissance-style scanning.
 The scanner first takes a user input:
 
 - IP address (e.g. `192.168.1.1`)
-- or domain name (e.g. `example.com`)
+- or domain name (e.g., `example.com`)
 
 It then resolves the domain to an IP address using Python’s `socket` library.
 
@@ -36,7 +36,7 @@ It then resolves the domain to an IP address using Python’s `socket` library.
 ### 2. Port Scanning Logic
 For each port in the scan range:
 
-- A TCP connection attempt is made using `socket.connect_ex()`
+- A TCP connection attempt is made using `socket.connect_ex().`
 - If the connection succeeds → the port is **OPEN**
 - If it fails → the port is counted as **CLOSED**
 
@@ -78,7 +78,9 @@ Closed ports: 1022
 socket.connect_ex((ip, port))
 
 This returns:
+
 0 → port is open
+non-zero → port is closed or unreachable
 
 non-zero → port is closed or unreachable
 📊 Default Scan Range
