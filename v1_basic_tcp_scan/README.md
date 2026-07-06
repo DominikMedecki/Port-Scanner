@@ -1,110 +1,201 @@
 # 🔍 PyPort Scout - v1 (Basic TCP Port Scanner)
 
-A simple Python-based TCP port scanner inspired by tools like Nmap.  
-This is the **first version (v1)** in a growing cybersecurity/red-team learning project.
+Version 1 of **PyPort Scout** is a lightweight TCP connect port scanner written in Python. It provides the foundation for the project by implementing the core principles of TCP port scanning using Python's built-in networking libraries.
 
-⚠️ **Disclaimer:**  
-This tool is intended for educational use and authorized testing only.  
-Do not scan systems you do not own or have permission to test.
+This version focuses on simplicity and readability, making it an excellent starting point for learning how port scanners work before introducing more advanced functionality in later releases.
 
----
-
-## 📌 Overview
-
-This scanner checks a target host (IP or domain) for open TCP ports within a defined range.
-
-Instead of displaying every closed port, it focuses on:
-- Open ports (services of interest)
-- A summary of closed ports
-
-This makes the output cleaner and more useful for reconnaissance-style scanning.
+> **Disclaimer**
+>
+> This tool is intended for educational purposes and authorized security testing only. Only scan systems that you own or have explicit permission to assess.
 
 ---
 
-## ⚙️ How It Works
+# 📌 Features
 
-### 1. Target Resolution
-The scanner first takes a user input:
-
-- IP address (e.g. `192.168.1.1`)
-- or domain name (e.g., `example.com`)
-
-It then resolves the domain to an IP address using Python’s `socket` library.
-
----
-
-### 2. Port Scanning Logic
-For each port in the scan range:
-
-- A TCP connection attempt is made using `socket.connect_ex().`
-- If the connection succeeds → the port is **OPEN**
-- If it fails → the port is counted as **CLOSED**
-
-No services are exploited or interacted with — only connection checks are performed.
+* Scan a target using an IP address or hostname
+* Resolve hostnames to IP addresses
+* Perform TCP connect scans
+* Display open ports only
+* Count and summarize closed ports
+* Timestamp each scan
+* Lightweight with no third-party dependencies
 
 ---
 
-### 3. Output Handling
+# 📸 Example Output
 
-Instead of printing every result, the scanner:
+> **Screenshot coming soon**
 
-- Prints each **open port immediately**
-- Tracks the number of closed ports internally
-- Displays a final summary at the end
+*Replace this section with a screenshot of the scanner running after your first release.*
+
+```
++--------------------------------------------------+
+|                 Screenshot Placeholder           |
+|                                                  |
+|        (Terminal output will be added here)      |
+|                                                  |
++--------------------------------------------------+
+```
+
+---
+
+# ⚙️ How It Works
+
+## 1. Target Resolution
+
+The scanner prompts the user to enter either:
+
+* An IPv4 address (e.g. `192.168.1.1`)
+* A hostname or domain (e.g. `example.com`)
+
+If a hostname is provided, Python's `socket.gethostbyname()` function resolves it to an IPv4 address before scanning begins.
+
+---
+
+## 2. TCP Port Scanning
+
+The scanner loops through a predefined range of TCP ports.
+
+For each port it:
+
+1. Creates a TCP socket.
+2. Attempts to establish a connection.
+3. Determines whether the port is open or closed.
+4. Closes the socket before moving to the next port.
+
+Version 1 uses a **TCP Connect Scan**, one of the simplest and most reliable techniques for determining whether a TCP port is accepting connections.
+
+---
+
+## 3. Output Handling
+
+Instead of printing every closed port, Version 1 focuses on the information that matters most.
+
+The scanner:
+
+* Displays each open port as it is discovered.
+* Counts closed ports internally.
+* Prints a summary once the scan has completed.
 
 Example output:
+
+```text
 [OPEN] Port 22
 [OPEN] Port 80
 
 --- Scan Complete ---
 
 Open ports found:
-
-22
-80
+  - 22
+  - 80
 
 Closed ports: 1022
+```
 
 ---
 
-## 🧠 Technical Breakdown
+# 🧠 Technical Breakdown
 
-### Libraries used:
-- `socket` → handles TCP connections
-- `datetime` → timestamps scan start time
+## Python Libraries
 
-### Core function:
+| Library    | Purpose                          |
+| ---------- | -------------------------------- |
+| `socket`   | TCP networking and port scanning |
+| `datetime` | Displays the scan start time     |
+
+---
+
+## Core Function
+
+The scanner determines whether a port is open using:
+
 ```python
 socket.connect_ex((ip, port))
+```
 
-This returns:
+Return values:
 
-0 → port is open
-non-zero → port is closed or unreachable
+* `0` → Connection successful (port is open)
+* Non-zero value → Connection failed (port is closed or unreachable)
 
-non-zero → port is closed or unreachable
-📊 Default Scan Range
+This method allows the scanner to determine the state of each TCP port without generating unnecessary output.
 
-The scanner checks:
+---
 
-Ports 1 - 1024
+# 📊 Default Scan Range
 
-This covers common service ports such as:
+Version 1 scans TCP ports:
 
-SSH (22)
-HTTP (80)
-HTTPS (443)
-FTP (21)
-DNS (53)
+```text
+1 - 1024
+```
 
-🚀 Future Improvements (v2+ roadmap)
+These ports include many well-known services, such as:
 
-This project is designed to evolve into a full Nmap-style tool.
+| Port | Common Service |
+| ---: | -------------- |
+|   21 | FTP            |
+|   22 | SSH            |
+|   53 | DNS            |
+|   80 | HTTP           |
+|  443 | HTTPS          |
 
-Planned upgrades:
+---
 
-🔍 Service/banner detection
-⚡ Multi-threaded scanning (faster performance)
-📁 JSON/TXT scan reports
-🎯 Custom port range input
-🧠 Scan profiles (quick/full / stealth mode)
+# ⚠️ Current Limitations
+
+Version 1 is intentionally simple.
+
+Current limitations include:
+
+* Single-threaded scanning
+* Fixed scan range (1–1024)
+* TCP scans only
+* No service or banner detection
+* No report generation
+* No command-line arguments
+* No scan profiles
+
+These limitations will be addressed in future versions.
+
+---
+
+# 🚀 Planned Improvements
+
+The following features are planned for Version 2 and beyond:
+
+* Service/banner detection
+* User-defined port ranges
+* JSON and TXT report generation
+* Command-line interface (CLI)
+* Multi-threaded scanning
+* Scan profiles
+* Improved performance
+* Better error handling
+* Additional output formatting
+
+---
+
+# 📚 Learning Objectives
+
+Version 1 demonstrates several fundamental networking concepts:
+
+* Socket programming in Python
+* TCP connection establishment
+* Hostname resolution
+* Sequential port scanning
+* Basic reconnaissance techniques
+* Simple terminal-based reporting
+
+---
+
+# 📄 Version Information
+
+**Project:** PyPort Scout
+
+**Version:** 1.0.0
+
+**Status:** Stable
+
+This release serves as the foundation for all future versions of the project.
+
