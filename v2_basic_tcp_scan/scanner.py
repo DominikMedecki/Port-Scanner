@@ -66,14 +66,7 @@ def scan_target(host, start_port, end_port):
         if scan_port(target_ip, port):
 
             print(f"[OPEN] Port {port}")
-            service = get_service_name(port)
-
-open_ports.append(
-    {
-        "port": port,
-        "service": service
-    }
-)
+            open_ports.append(port)
 
         else:
             closed_ports += 1
